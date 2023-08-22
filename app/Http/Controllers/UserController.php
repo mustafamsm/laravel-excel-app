@@ -16,12 +16,17 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $users=User::query()
+        ->when($request->search,function($query,$search){
+            $query->where('name','LIKE',"%{$search}%");
+        })->get();
+
 
 
         return Inertia::render('users/Index', [
-            'users' => User::all(),
+            'users' => $users,
         ]);
     }
 
