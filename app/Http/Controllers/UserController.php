@@ -18,15 +18,20 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users=User::query()
-        ->when($request->search,function($query,$search){
-            $query->where('name','LIKE',"%{$search}%");
-        })->get();
+        // $users=User::query()
+        // ->when($request->search,function($query,$search){
+        //     $query->where('name','LIKE',"%{$search}%");
+        // })->get();
 
 
 
-        return Inertia::render('users/Index', [
-            'users' => $users,
+        // return Inertia::render('users/Index', [
+        //     'users' => $users,
+        // ]);
+
+
+        return view('users',[
+            'users'=>User::all()
         ]);
     }
 
